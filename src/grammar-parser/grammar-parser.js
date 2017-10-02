@@ -208,9 +208,9 @@ break;
 case 23:
 
       var result = [];
-      
+
       var textInArray = yytext.replace('{','').replace('}','');
-      
+
       var arr = textInArray.split(';');
       if(arr.length <= 1) {
         var arr = eval("[[" + arr + "]]");
@@ -242,14 +242,20 @@ case 31: case 32: case 33:
       this.$ = yy.cellValue($$[$0]);
     
 break;
-case 34: case 35:
+case 34:
 
-      this.$ = yy.cellValue($$[$0], $$[$0-2]);
+
+      this.$ = yy.cellValue($$[$0], $$[$0-2].replace(/'/g, ""));
+    
+break;
+case 35:
+
+      this.$ = yy.cellValue($$[$0], $$[$0-2].replace(/'/g, ""));
     
 break;
 case 36:
 
-    this.$ = yy.cellValue($$[$0], $$[$0-2]);
+    this.$ = yy.cellValue($$[$0], $$[$0-2].replace(/'/g, ""));
   
 break;
 case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45:
@@ -259,7 +265,7 @@ case 37: case 38: case 39: case 40: case 41: case 42: case 43: case 44: case 45:
 break;
 case 46: case 47: case 48: case 49: case 50: case 51: case 52: case 53: case 54:
 
-      this.$ = yy.rangeValue($$[$0-2], $$[$0], $$[$0-4]);
+      this.$ = yy.rangeValue($$[$0-2], $$[$0], $$[$0-4].replace(/'/g, ""));
     
 break;
 case 55: case 58:
@@ -887,88 +893,90 @@ case 0:
 break;
 case 1:return 8;
 break;
-case 2:return 8;
+case 2:return 32;
 break;
-case 3:return 21;
+case 3:return 8;
 break;
-case 4:return 41;
+case 4:return 21;
 break;
-case 5:return 29;
+case 5:return 41;
 break;
-case 6:return 31;
+case 6:return 29;
 break;
 case 7:return 31;
 break;
-case 8:return 30;
+case 8:return 31;
 break;
-case 9:return 32;
+case 9:return 30;
 break;
-case 10:return 21;
+case 10:return 32;
 break;
-case 11:return 37;
+case 11:return 21;
 break;
 case 12:return 37;
 break;
-case 13:return 39;
+case 13:return 37;
 break;
-case 14:return 24;
+case 14:return 39;
 break;
-case 15:return 23;
+case 15:return 24;
 break;
-case 16:return 9;
+case 16:return 23;
 break;
-case 17:return ' ';
+case 17:return 9;
 break;
-case 18:return 38;
+case 18:return ' ';
 break;
-case 19:return 34;
+case 19:return 38;
 break;
-case 20:return 35;
+case 20:return 34;
 break;
-case 21:return 36;
+case 21:return 35;
 break;
-case 22:return 18;
+case 22:return 36;
 break;
-case 23:return 19;
+case 23:return 18;
 break;
-case 24:return 17;
+case 24:return 19;
 break;
-case 25:return 11;
+case 25:return 17;
 break;
-case 26:return 20;
+case 26:return 11;
 break;
-case 27:return 12;
+case 27:return 20;
 break;
-case 28:return 13;
+case 28:return 12;
 break;
-case 29:return 15;
+case 29:return 13;
 break;
-case 30:return 14;
+case 30:return 15;
 break;
-case 31:return 16;
+case 31:return 14;
 break;
-case 32:return '"';
+case 32:return 16;
 break;
-case 33:return "'";
+case 33:return '"';
 break;
-case 34:return "!";
+case 34:return "'";
 break;
-case 35:return 10;
+case 35:return "!";
 break;
-case 36:return 40;
+case 36:return 10;
 break;
-case 37:return '{';
+case 37:return 40;
 break;
-case 38:return '}';
+case 38:return '{';
 break;
-case 39:return '#';
+case 39:return '}';
 break;
-case 40:return 5;
+case 40:return '#';
+break;
+case 41:return 5;
 break;
 }
 },
-rules: [/^(?:\s+)/,/^(?:"(\\["]|[^"])*")/,/^(?:'(\\[']|[^'])*')/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(]))/,/^(?:#[A-Z0-9\/]+(!|\?)?)/,/^(?:\$[A-Za-z]+\$[0-9]+)/,/^(?:\$[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z]+\$[0-9]+)/,/^(?:[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z_\.\d]+(?=[!]))/,/^(?:[A-Za-z\.]+(?=[(]))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9]+)/,/^(?:[A-Za-z_]+)/,/^(?:[0-9]+)/,/^(?:\[([\w\,\;\s]*)?\])/,/^(?:\{([\w\,\;\"\.\s]*)?\})/,/^(?:&)/,/^(?: )/,/^(?:[.])/,/^(?::)/,/^(?:;)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:>)/,/^(?:<)/,/^(?:NOT\b)/,/^(?:")/,/^(?:')/,/^(?:!)/,/^(?:=)/,/^(?:%)/,/^(?:\{)/,/^(?:\})/,/^(?:[#])/,/^(?:$)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40],"inclusive":true}}
+rules: [/^(?:\s+)/,/^(?:"(\\["]|[^"])*")/,/^(?:'[A-Za-z_\.\d ]+'(?=[!]))/,/^(?:'(\\[']|[^'])*')/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(]))/,/^(?:#[A-Z0-9\/]+(!|\?)?)/,/^(?:\$[A-Za-z]+\$[0-9]+)/,/^(?:\$[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z]+\$[0-9]+)/,/^(?:[A-Za-z]+[0-9]+)/,/^(?:[A-Za-z_\.\d]+(?=[!]))/,/^(?:[A-Za-z\.]+(?=[(]))/,/^(?:[A-Za-z]{1,}[A-Za-z_0-9]+)/,/^(?:[A-Za-z_]+)/,/^(?:[0-9]+)/,/^(?:\[([\w\,\;\s]*)?\])/,/^(?:\{([\w\,\;\"\.\s]*)?\})/,/^(?:&)/,/^(?: )/,/^(?:[.])/,/^(?::)/,/^(?:;)/,/^(?:,)/,/^(?:\*)/,/^(?:\/)/,/^(?:-)/,/^(?:\+)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:>)/,/^(?:<)/,/^(?:NOT\b)/,/^(?:")/,/^(?:')/,/^(?:!)/,/^(?:=)/,/^(?:%)/,/^(?:\{)/,/^(?:\})/,/^(?:[#])/,/^(?:$)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41],"inclusive":true}}
 });
 return lexer;
 })();

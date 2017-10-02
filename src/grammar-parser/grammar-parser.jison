@@ -7,6 +7,7 @@
 \s+
 {/* skip whitespace */}
 '"'("\\"["]|[^"])*'"'                                                                           {return 'STRING';}
+"'"[A-Za-z_\.\d ]+"'"(?=[!])                                                                    {return 'REFSHEET';}
 "'"('\\'[']|[^'])*"'"                                                                           {return 'STRING';}
 [A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(])                                                              {return 'FUNCTION';}
 '#'[A-Z0-9\/]+('!'|'?')?                                                                        {return 'ERROR';}
@@ -148,9 +149,9 @@ expression
     }
   | ARRAYCONSTANT {
       var result = [];
-      
+
       var textInArray = yytext.replace('{','').replace('}','');
-      
+
       var arr = textInArray.split(';');
       if(arr.length <= 1) {
         var arr = eval("[[" + arr + "]]");
@@ -196,13 +197,14 @@ cell
 
 refCell
   : REFSHEET '!' ABSOLUTE_CELL {
-      $$ = yy.cellValue($3, $1);
+
+      $$ = yy.cellValue($3, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' RELATIVE_CELL {
-      $$ = yy.cellValue($3, $1);
-    } 
+      $$ = yy.cellValue($3, $1.replace(/'/g, ""));
+    }
   | REFSHEET '!' MIXED_CELL {
-    $$ = yy.cellValue($3, $1);
+    $$ = yy.cellValue($3, $1.replace(/'/g, ""));
   }
 ;
 
@@ -238,31 +240,31 @@ range
 
 refRange
   : REFSHEET '!' ABSOLUTE_CELL ':' ABSOLUTE_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' ABSOLUTE_CELL ':' RELATIVE_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' ABSOLUTE_CELL ':' MIXED_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' RELATIVE_CELL ':' ABSOLUTE_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' RELATIVE_CELL ':' RELATIVE_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' RELATIVE_CELL ':' MIXED_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' MIXED_CELL ':' ABSOLUTE_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' MIXED_CELL ':' RELATIVE_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
   | REFSHEET '!' MIXED_CELL ':' MIXED_CELL {
-      $$ = yy.rangeValue($3, $5, $1);
+      $$ = yy.rangeValue($3, $5, $1.replace(/'/g, ""));
     }
 ;
 
