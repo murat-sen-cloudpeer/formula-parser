@@ -19370,8 +19370,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function func(first) {
 	  try {
+	    if (first === undefined) {
+	      return 0;
+	    }
+	
 	    for (var _len = arguments.length, rest = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
 	      rest[_key - 1] = arguments[_key];
+	    }
+	
+	    for (var i = 0; i < rest.length; i++) {
+	      if (rest[i] === undefined) {
+	        return 0;
+	      }
 	    }
 	
 	    var result = rest.reduce(function (acc, value) {
