@@ -209,6 +209,7 @@ const SUPPORTED_FORMULAS = [
   'LOGNORM.INV',
   'LOGNORMDIST',
   'LOGNORMINV',
+  'LOOKUP',
   'LOWER',
   'LT',
   'LTE',

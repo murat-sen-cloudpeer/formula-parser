@@ -1642,9 +1642,9 @@ formatio@1.1.1:
   dependencies:
     samsam "~1.1"
 
-"formulajs@github:handsontable/formula.js":
+"formulajs@github:subtletree/formula.js#develop":
   version "1.2.1"
-  resolved "https://codeload.github.com/handsontable/formula.js/tar.gz/a4238bb54407c7a208d3060dd9e4627e8333c5b4"
+  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/40c7ab9623af5a2c975760774980bf3909b3ac82"
   dependencies:
     bessel "^0.2.0"
     jStat "^1.7.0"
@@ -4535,8 +4535,8 @@ vm-browserify@0.0.4:
     indexof "0.0.1"
 
 voc@:
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/voc/-/voc-0.5.0.tgz#be6ca7c76e4a57d930cc80f6b31fbd80ca86045c"
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/voc/-/voc-1.0.0.tgz#5465c0ce11d0881f7d8e36d8ca587043f33a25ae"
 
 vow-fs@~0.3.4:
   version "0.3.6"
