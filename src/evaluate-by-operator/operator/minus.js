@@ -6,6 +6,15 @@ export const SYMBOL = '-';
 
 export default function func(first, ...rest) {
   try {
+    if (first === undefined || first === '') {
+      first = 0;
+    }
+    for (var i = 0; i < rest.length; i++) {
+      if (rest[i] === undefined || rest[i] === '') {
+        rest[i] = 0;
+      }
+    }
+
     const result = rest.reduce((acc, value) => {
       return (new Decimal(acc)).minus(new Decimal(value)).toNumber();
     }, first);
