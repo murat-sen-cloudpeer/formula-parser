@@ -82,6 +82,7 @@ const SUPPORTED_FORMULAS = [
   'CUMIPMT',
   'CUMPRINC',
   'DATE',
+  'DATEDIF',
   'DATEVALUE',
   'DAY',
   'DAYS',
