@@ -179,6 +179,7 @@ const SUPPORTED_FORMULAS = [
   'IMSUB',
   'IMSUM',
   'IMTAN',
+  'INDEX',
   'INT',
   'INTERCEPT',
   'INTERVAL',

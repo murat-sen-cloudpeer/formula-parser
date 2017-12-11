@@ -1644,7 +1644,7 @@ formatio@1.1.1:
 
 "formulajs@github:subtletree/formula.js#develop":
   version "1.2.1"
-  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/5757f23b7389bc0f8c7257b6284cf633ad1ca8e6"
+  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/7cc248b4eba2443fc7c9cd43caf9fc4ae5996295"
   dependencies:
     bessel "^0.2.0"
     jStat "^1.7.0"
@@ -3300,8 +3300,8 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
 
 numbro@^1.11.0:
-  version "1.11.0"
-  resolved "https://registry.yarnpkg.com/numbro/-/numbro-1.11.0.tgz#39aa17b358b4682aec8ca0d5755f35c5d9ce8f9e"
+  version "1.11.1"
+  resolved "https://registry.yarnpkg.com/numbro/-/numbro-1.11.1.tgz#e0d9ba0ddfc3ad5ac01d9558a49383db214f04be"
 
 oauth-sign@~0.8.1:
   version "0.8.2"
