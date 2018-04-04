@@ -1644,7 +1644,7 @@ formatio@1.1.1:
 
 "formulajs@github:subtletree/formula.js#develop":
   version "1.2.1"
-  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/7cc248b4eba2443fc7c9cd43caf9fc4ae5996295"
+  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/d2a086df0be8349bd873f71c84f764482bc0f49a"
   dependencies:
     bessel "^0.2.0"
     jStat "^1.7.0"
@@ -4535,8 +4535,8 @@ vm-browserify@0.0.4:
     indexof "0.0.1"
 
 voc@:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/voc/-/voc-1.0.0.tgz#5465c0ce11d0881f7d8e36d8ca587043f33a25ae"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/voc/-/voc-1.1.0.tgz#d1a08aeff66646bf17cdba2e47c935a7a9b0218b"
 
 vow-fs@~0.3.4:
   version "0.3.6"
