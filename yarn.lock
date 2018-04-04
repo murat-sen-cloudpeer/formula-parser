@@ -1644,7 +1644,7 @@ formatio@1.1.1:
 
 "formulajs@github:subtletree/formula.js#develop":
   version "1.2.1"
-  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/d2a086df0be8349bd873f71c84f764482bc0f49a"
+  resolved "https://codeload.github.com/subtletree/formula.js/tar.gz/b492a0625a7437ffcddf996233dbbebcfc1195be"
   dependencies:
     bessel "^0.2.0"
     jStat "^1.7.0"
