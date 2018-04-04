@@ -19289,6 +19289,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.PMT = function(rate, periods, present, future, type) {
 	  // Credits: algorithm inspired by Apache OpenOffice
+	  if (present === undefined) {
+	    return 0;
+	  }
 	
 	  future = future || 0;
 	  type = type || 0;
