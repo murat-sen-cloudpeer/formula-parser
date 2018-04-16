@@ -1,16 +1,17 @@
 import { toNumber } from './../../helper/number';
 import { ERROR_DIV_ZERO, ERROR_VALUE } from './../../error';
+import {undefinedCell} from './../../helper/undefined-cell';
 import Decimal from 'decimal.js';
 
 export const SYMBOL = '/';
 
 export default function func(first, ...rest) {
   try {
-    if (first === undefined) {
-      return 0;
-    }
+    first = undefinedCell(first);
+
     for (var i = 0; i < rest.length; i++) {
-      if (rest[i] === undefined) {
+      rest[i] = undefinedCell(rest[i]);
+      if (rest[i] === 0) {
         return 0;
       }
     }

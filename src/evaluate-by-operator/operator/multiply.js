@@ -1,18 +1,16 @@
 import { toNumber } from './../../helper/number';
 import { ERROR_VALUE, } from './../../error';
+import {undefinedCell} from './../../helper/undefined-cell';
 import Decimal from 'decimal.js';
 
 export const SYMBOL = '*';
 
 export default function func(first, ...rest) {
   try {
-    if (first === undefined) {
-      return 0;
-    }
+    first = undefinedCell(first);
+
     for (var i = 0; i < rest.length; i++) {
-      if (rest[i] === undefined) {
-        return 0;
-      }
+      rest[i] = undefinedCell(rest[i]);
     }
 
     const result = rest.reduce((acc, value) => {
