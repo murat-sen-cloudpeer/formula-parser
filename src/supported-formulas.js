@@ -189,6 +189,7 @@ const SUPPORTED_FORMULAS = [
   'ISBLANK',
   'ISEVEN',
   'ISLOGICAL',
+  'ISNA',
   'ISNONTEXT',
   'ISNUMBER',
   'ISODD',
