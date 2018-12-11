@@ -6905,15 +6905,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	exports.SUMIF = function(range, criteria, sumRange) {
-	  range = utils.parseNumberArray(utils.flatten(range));
-	  if (range instanceof Error) {
-	    return range;
-	  }
+	  range = utils.flatten(range);
 	  if (sumRange !== undefined) {
-	    sumRange = utils.parseNumberArray(utils.flatten(sumRange));
-	    if (sumRange instanceof Error) {
-	      return sumRange;
-	    }
+	    sumRange = utils.flatten(sumRange);
 	  }
 	  else{
 	    sumRange = range;
@@ -6921,8 +6915,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	  var result = 0;
 	
 	  if (criteria.includes('>') || criteria.includes('<') || criteria.includes('=')) {
+	    criteria = criteria.replace(/=/g, '==').replace(/<>/g, '!=');
 	    for (var i = 0; i < range.length; i++) {
-	      result += (eval(range[i] + criteria)) ? sumRange[i] : 0; // jshint ignore:line
+	      result += (eval('"' + range[i] + '"' + criteria)) ? sumRange[i] : 0; // jshint ignore:line
 	    }
 	  }
 	  else {
