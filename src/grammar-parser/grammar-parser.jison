@@ -7,7 +7,7 @@
 \s+
 {/* skip whitespace */}
 '"'("\\"["]|[^"])*'"'                                                                           {return 'STRING';}
-"'"((?![\\\/\[\]\*\?\:]).)+"'"(?=!)                                                             {return 'REFSHEET';}
+"'"((?![\\\/\[\]\*\?\:]).)+?"'"(?=!)                                                            {return 'REFSHEET';}
 "'"('\\'[']|[^'])*"'"                                                                           {return 'STRING';}
 [A-Za-z]{1,}[A-Za-z_0-9\.]+(?=[(])                                                              {return 'FUNCTION';}
 '#'[A-Z0-9\/]+('!'|'?')?                                                                        {return 'ERROR';}
