@@ -7091,25 +7091,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (!array || !array.reduce) {
 	    return array;
 	  }
-	
-	  return array.reduce(function(a, b) {
-	    var aIsArray = Array.isArray(a);
-	    var bIsArray = Array.isArray(b);
-	
-	    if (aIsArray && bIsArray ) {
-	      return a.concat(b);
-	    }
-	    if (aIsArray) {
-	      a.push(b);
-	
-	      return a;
-	    }
-	    if (bIsArray) {
-	      return [a].concat(b);
-	    }
-	
-	    return [a, b];
-	  });
+	  return [].concat.apply([], array);
 	};
 	
 	exports.isFlat = function(array) {
