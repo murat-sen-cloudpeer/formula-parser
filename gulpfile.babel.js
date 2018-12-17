@@ -4,14 +4,15 @@ import gulp from 'gulp';
 import jison from 'gulp-jison';
 import loadPlugins from 'gulp-load-plugins';
 import path from 'path';
-import source from 'vinyl-source-stream';
 import webpack from 'webpack';
 import webpackStream from 'webpack-stream';
 import yargs from 'yargs';
-import {Instrumenter} from 'isparta';
 
 import mochaGlobals from './test/setup/.globals';
-import manifest  from './package.json';
+import manifest from './package.json';
+
+require('@babel/register');
+require('@babel/core');
 
 // Load all of our Gulp plugins
 const $ = loadPlugins();
@@ -22,12 +23,12 @@ const mainFile = manifest.main;
 const destinationFolder = path.dirname(mainFile);
 const exportFileName = path.basename(mainFile, path.extname(mainFile));
 
-function cleanDist(done) {
-  del([destinationFolder]).then(() => done());
+function cleanDist() {
+  return del([destinationFolder]);
 }
 
-function cleanTmp(done) {
-  del(['tmp']).then(() => done());
+function cleanTmp() {
+  return del(['tmp']);
 }
 
 function onError() {
@@ -48,9 +49,6 @@ function lint(files) {
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.eslint.failOnError())
-    .pipe($.jscs())
-    .pipe($.jscs.reporter())
-    .pipe($.jscs.reporter('fail'))
     .on('error', onError);
 }
 
@@ -70,25 +68,20 @@ function build() {
   return gulp.src(path.join(config.entryFileName + '.js'))
     .pipe($.plumber())
     .pipe(webpackStream({
+      mode: 'production',
       output: {
         filename: exportFileName + '.js',
         libraryTarget: 'umd',
         library: config.mainVarName
       },
       module: {
-        loaders: [
-          {
-            test: /\/numbro\/languages\/(([a-z]+\-[A-Z]+)|index)\.js$/,
-            loader: require.resolve('null-loader')
-          },
+        rules: [
           {
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: require.resolve('babel-loader'),
-            babelrc: false,
-            query: {
-              presets: [require.resolve('babel-preset-es2015')]
-            }
+            use: {
+              loader: 'babel-loader',
+            },
           }
         ],
       },
@@ -98,7 +91,7 @@ function build() {
     .pipe(gulp.dest(destinationFolder))
     .pipe($.filter(['*', '!**/*.js.map']))
     .pipe($.rename(exportFileName + '.min.js'))
-    .pipe($.sourcemaps.init({ loadMaps: true }))
+    .pipe($.sourcemaps.init({loadMaps: true}))
     .pipe($.uglify())
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest(destinationFolder));
@@ -119,24 +112,16 @@ function _mocha() {
     }));
 }
 
-function _registerBabel() {
-  require('babel-register');
-}
-
 function test() {
-  _registerBabel();
   return _mocha();
 }
 
-function coverage(done) {
-  _registerBabel();
+function coverage() {
   gulp.src(['src/**/*.js', '!src/grammar-parser/*'])
-    .pipe($.istanbul({instrumenter: Instrumenter}))
     .pipe($.istanbul.hookRequire())
     .on('finish', () => {
       return test()
         .pipe($.istanbul.writeReports())
-        .on('end', done);
     });
 }
 
@@ -171,18 +156,18 @@ function testBrowser() {
       module: {
         loaders: [
           // This is what allows us to author in future JavaScript
-          { test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader' },
+          {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
           // This allows the test setup scripts to load `package.json`
-          { test: /\.json$/, exclude: /node_modules/, loader: 'json-loader' }
+          {test: /\.json$/, exclude: /node_modules/, loader: 'json-loader'}
         ]
       },
       plugins: [
         // By default, webpack does `n=>n` compilation with entry files. This concatenates
         // them into a single chunk.
-        new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 1 })
+        new webpack.optimize.LimitChunkCountPlugin({maxChunks: 1})
       ],
       devtool: 'inline-source-map'
-    }, null, function() {
+    }, null, function () {
       if (firstBuild) {
         $.livereload.listen({port: 35729, host: 'localhost', start: true});
         var watcher = gulp.watch(watchFiles, ['lint']);
@@ -210,22 +195,38 @@ gulp.task('lint-test', lintTest);
 gulp.task('lint-gulpfile', lintGulpfile);
 
 // Lint everything
-gulp.task('lint', ['lint-src', 'lint-test', 'lint-gulpfile']);
+gulp.task('lint', (cb) => {
+  gulp.series(lintSrc, lintTest, lintGulpfile);
+  if (cb)
+    cb();
+});
 
 // Build two versions of the library
-gulp.task('build', ['lint', 'clean'], build);
+gulp.task('build', (cb) => {
+  gulp.task('lint')();
+  gulp.task('clean')();
+  build();
+  cb();
+});
 
 // Build two versions of the library (without linting)
 gulp.task('_build', build);
 
 // Lint and run our tests
-gulp.task('test', ['lint'], test);
+gulp.task('test', () => {
+  gulp.task('lint')();
+  return test()
+});
 
 // Set up coverage
 gulp.task('coverage', coverage);
 
 // Set up a livereload environment for our spec runner `test/runner.html`
-gulp.task('test-browser', ['lint', 'clean-tmp'], testBrowser);
+gulp.task('test-browser', () => {
+  gulp.task('lint')();
+  gulp.task('clean-tmp')();
+  testBrowser();
+});
 
 // Run the headless tests as you make changes
 gulp.task('watch', watch);
@@ -234,4 +235,6 @@ gulp.task('watch', watch);
 gulp.task('generate-parser', generateParser);
 
 // An alias of test
-gulp.task('default', ['test']);
+gulp.task('default', () => {
+  gulp.task('test')();
+});

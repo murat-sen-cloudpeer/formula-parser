@@ -4,5 +4,5 @@ global.chai.use(require('sinon-chai'));
 
 chai.use(require('chai-stats'));
 
-require('babel-core/register');
+require('@babel/register');
 require('./setup')();
