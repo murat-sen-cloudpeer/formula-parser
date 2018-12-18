@@ -97,7 +97,6 @@ const SUPPORTED_FORMULAS = [
   'DELTA',
   'DEVSQ',
   'DIVIDE',
-  'DOLLAR',
   'DOLLARDE',
   'DOLLARFR',
   'E',
@@ -109,6 +108,7 @@ const SUPPORTED_FORMULAS = [
   'ERFC',
   'EVEN',
   'EXACT',
+  'EXP',
   'EXPON.DIST',
   'EXPONDIST',
   'F.DIST',
@@ -125,7 +125,6 @@ const SUPPORTED_FORMULAS = [
   'FINVRT',
   'FISHER',
   'FISHERINV',
-  'FIXED',
   'FLATTEN',
   'FLOOR',
   'FORECAST',
@@ -254,7 +253,6 @@ const SUPPORTED_FORMULAS = [
   'NPER',
   'NPV',
   'NUMBERS',
-  'NUMERAL',
   'OCT2BIN',
   'OCT2DEC',
   'OCT2HEX',
@@ -360,7 +358,6 @@ const SUPPORTED_FORMULAS = [
   'TDIST',
   'TDIST2T',
   'TDISTRT',
-  'TEXT',
   'TIME',
   'TIMEVALUE',
   'TINV',
@@ -376,7 +373,6 @@ const SUPPORTED_FORMULAS = [
   'UNICODE',
   'UNIQUE',
   'UPPER',
-  'VALUE',
   'VAR.P',
   'VAR.S',
   'VARA',
@@ -399,4 +395,4 @@ const SUPPORTED_FORMULAS = [
   'IFNA'
 ];
 
-export {SUPPORTED_FORMULAS as default};
+export default SUPPORTED_FORMULAS;

@@ -3,10 +3,8 @@ import evaluateByOperator from './evaluate-by-operator/evaluate-by-operator';
 import {Parser as GrammarParser} from './grammar-parser/grammar-parser';
 import {trimEdges} from './helper/string';
 import {toNumber, invertNumber} from './helper/number';
-import {default as errorParser, isValidStrict as isErrorValid, ERROR, ERROR_NAME} from './error';
+import errorParser, {isValidStrict as isErrorValid, ERROR, ERROR_NAME} from './error';
 import {extractLabel, toLabel} from './helper/cell';
-
-export {default as SUPPORTED_FORMULAS} from './supported-formulas';
 
 /**
  * @class Parser
@@ -22,11 +20,12 @@ class Parser extends Emitter {
       throwError: (errorName) => this._throwError(errorName),
       callVariable: (variable) => this._callVariable(variable),
       evaluateByOperator,
-      callFunction: evaluateByOperator,
-      cellValue: (value, sheet) => this._callCellValue(value, sheet),
-      rangeValue: (start, end, sheet) => this._callRangeValue(start, end, sheet),
+      callFunction: (name, params) => this._callFunction(name, params),
+      cellValue: (value) => this._callCellValue(value),
+      rangeValue: (start, end) => this._callRangeValue(start, end),
     };
     this.variables = Object.create(null);
+    this.functions = Object.create(null);
 
     this
       .setVariable('TRUE', true)
@@ -66,8 +65,8 @@ class Parser extends Emitter {
     }
 
     return {
-      error: error,
-      result: result
+      error,
+      result,
     };
   }
 
@@ -115,6 +114,54 @@ class Parser extends Emitter {
     }
 
     return value;
+  }
+
+  /**
+   * Set custom function which can be visible while parsing formula expression.
+   *
+   * @param {String} name Custom function name.
+   * @param {Function} fn Custom function.
+   * @returns {Parser}
+   */
+  setFunction(name, fn) {
+    this.functions[name] = fn;
+
+    return this;
+  }
+
+  /**
+   * Get custom function.
+   *
+   * @param {String} name Custom function name.
+   * @returns {*}
+   */
+  getFunction(name) {
+    return this.functions[name];
+  }
+
+  /**
+   * Call function with provided params.
+   *
+   * @param name Function name.
+   * @param params Function params.
+   * @returns {*}
+   * @private
+   */
+  _callFunction(name, params = []) {
+    const fn = this.getFunction(name);
+    let value;
+
+    if (fn) {
+      value = fn(params);
+    }
+
+    this.emit('callFunction', name, params, (newValue) => {
+      if (newValue !== void 0) {
+        value = newValue;
+      }
+    });
+
+    return value === void 0 ? evaluateByOperator(name, params) : value;
   }
 
   /**
@@ -206,4 +253,4 @@ class Parser extends Emitter {
   }
 }
 
-export {Parser};
+export default Parser;
