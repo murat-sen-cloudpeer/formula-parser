@@ -5,6 +5,7 @@ const env = process.env.NODE_ENV;
 const config = {
   mode: 'production',
   devtool: 'source-map',
+  target: 'node',
   module: {
     rules: [
       {

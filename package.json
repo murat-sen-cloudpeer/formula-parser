@@ -18,7 +18,7 @@
     "build:umd:min": "cross-env BABEL_ENV=commonjs NODE_ENV=production webpack src/index.js dist/formula-parser.min.js",
     "build:umd": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack src/index.js dist/formula-parser.js",
     "build:dev": "cross-env BABEL_ENV=commonjs NODE_ENV=development webpack --config webpack.config.js",
-    "generate-parser": "cd src/grammar-parser && jison grammar-parser.jison -m js",
+    "generate-parser": "cd src/grammar-parser && jison grammar-parser.jison",
     "release": "./node_modules/.bin/generate-release",
     "prepublish": "npm run clean && npm run check && npm run build && check-es3-syntax lib/ dist/ --kill --print"
   },
