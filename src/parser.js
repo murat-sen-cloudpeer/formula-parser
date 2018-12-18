@@ -21,8 +21,8 @@ class Parser extends Emitter {
       callVariable: (variable) => this._callVariable(variable),
       evaluateByOperator,
       callFunction: (name, params) => this._callFunction(name, params),
-      cellValue: (value) => this._callCellValue(value),
-      rangeValue: (start, end) => this._callRangeValue(start, end),
+      cellValue: (value, sheet) => this._callCellValue(value, sheet),
+      rangeValue: (start, end, sheet) => this._callRangeValue(start, end, sheet),
     };
     this.variables = Object.create(null);
     this.functions = Object.create(null);
