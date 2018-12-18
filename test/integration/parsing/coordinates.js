@@ -39,7 +39,7 @@ describe('.parse() coordinates', () => {
       label: 'A1',
       row: {index: 0, isAbsolute: false, label: '1'},
       column: {index: 0, isAbsolute: false, label: 'A'},
-      sheet: 'MASTER'
+      sheet: 'MASTER',
     });
 
     expect(parser.parse('MASTER!a1')).to.deep.equal({error: null, result: 66});
@@ -137,7 +137,7 @@ describe('.parse() coordinates', () => {
     expect(parser.parse('MASTER!A1$')).to.deep.equal({error: '#ERROR!', result: null});
     expect(parser.parse('MASTER!A1$$$')).to.deep.equal({error: '#ERROR!', result: null});
     expect(parser.parse('MASTER!a1$$$')).to.deep.equal({error: '#ERROR!', result: null});
-    });
+  });
 
   it('should parse mixed cell', () => {
     expect(parser.parse('$A1')).toMatchObject({error: null, result: 55});
