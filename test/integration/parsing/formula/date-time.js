@@ -16,9 +16,7 @@ describe('.parse() date & time formulas', () => {
     const {error, result} = parser.parse('DATE(2001, 5, 12)');
 
     expect(error).toBeNull();
-    expect(result.getFullYear()).toBe(2001);
-    expect(result.getMonth()).toBe(4); // counting from zero
-    expect(result.getDate()).toBe(12);
+    expect(result).toBe(37023);
   });
 
   it('DATEVALUE', () => {
@@ -154,7 +152,7 @@ describe('.parse() date & time formulas', () => {
     const {result, error} = parser.parse('WORKDAY("1/1/1900", 1)');
 
     expect(error).toBeNull();
-    expect(result.getDate()).toBe(2);
+    expect(result).toBe(2);
   });
 
   it('YEAR', () => {

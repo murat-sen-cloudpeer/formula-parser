@@ -13,7 +13,7 @@ describe('.parse()', () => {
   it('should return error when number of arguments is not valid', () => {
     /* eslint-disable */
     expect(parser.parse('ACOTH("foo")')).toMatchObject({error: '#VALUE!', result: null});
-    expect(parser.parse("ACOTH('foo')")).toMatchObject({error: '#VALUE!', result: null});
+    expect(parser.parse("ACOTH('foo')")).toMatchObject({error: '#ERROR!', result: null});
     /* eslint-enable */
   });
 
